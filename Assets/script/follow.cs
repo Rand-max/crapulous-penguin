@@ -12,7 +12,10 @@ public class follow : MonoBehaviour
     public float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     public float turboSmoothtime = 0.1f;
+    GameObject app;
+    public bool healive;
     float turboSmoothVelocity;
+
 
     private void Start()
     {
@@ -39,7 +42,7 @@ public class follow : MonoBehaviour
             controller.Move(move * Time.deltaTime * playerSpeed);
         }
 
-        // Changes the height position of the player..
+        // Changes the height position of the player
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
@@ -48,4 +51,5 @@ public class follow : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+    
 }
