@@ -6,17 +6,16 @@ public class AppleController : MonoBehaviour
 {
     public ParticleSystem pb;
     public bool alive;
-    bool fl;
     // Start is called before the first frame update
     void Start()
     {
-        fl =true;
+        alive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!fl)
+        if (!alive)
         {
             Instantiate(pb, this.gameObject.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
@@ -26,8 +25,7 @@ public class AppleController : MonoBehaviour
     {
         if (other.gameObject.tag=="penguin")
         {
-            fl = false;
+            alive = false;
         }
     }
-
 }

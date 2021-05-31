@@ -12,6 +12,12 @@ public class follow : MonoBehaviour
     public float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     public float turboSmoothtime = 0.1f;
+    public ParticleSystem exfield;
+    public ParticleSystem sparkles;
+    public AudioSource kaboom;
+    public AudioSource ting;
+    public AudioSource jump;
+    public AudioSource dash;
     GameObject app;
     public bool healive;
     float turboSmoothVelocity;
@@ -45,11 +51,46 @@ public class follow : MonoBehaviour
         // Changes the height position of the player
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
+            PlayJump();
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+        //explode field
+        if (Input.GetKeyDown("c"))
+        {
+            Instantiate(exfield, this.gameObject.transform.position, Quaternion.identity);
+            //Instantiate(sparkles, this.gameObject.transform.position, Quaternion.identity);
+            Playboom();
+        }
+        if (Input.GetKeyDown("x"))
+        {
+            PlayDash();
+        }
     }
-    
+    public void Playboom()
+    {
+        kaboom.Play();
+    }
+    void PlayTing()
+    {
+        ting.Play();
+    }
+    void PlayJump()
+    {
+        jump.Play();
+    }
+    void PlayDash()
+    {
+        dash.Play();
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "apple"|| other.gameObject.tag == "banana")
+        {
+            PlayTing();
+        }
+    }
 }
